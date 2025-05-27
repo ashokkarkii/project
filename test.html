@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>File Gen Navbar</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@heroicons/vue@2.0.13/outline"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body class="font-[Inter] bg-gray-50">
+
+  <nav class="flex items-center justify-between px-6 py-2 bg-red-400 shadow-sm">
+    <!-- Left: Logo -->
+    <div class="flex items-center space-x-2">
+      <button class="text-xl">&#9776;</button>
+      <span class="text-xl font-bold text-gray-800">File Gen</span>
+    </div>
+
+    <!-- Right: Search + Icons -->
+    <div class="flex items-center space-x-4">
+      <!-- Search -->
+      <div class="relative">
+        <input
+          type="text"
+          placeholder="Search anything here"
+          class="pl-10 pr-4 py-2 w-72 rounded-md bg-gray-100 focus:ring-2 focus:ring-blue-500 outline-none"
+          id="searchInput"
+        />
+        <svg class="w-5 h-5 text-gray-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
+        </svg>
+      </div>
+
+      <!-- Notifications Icon -->
+      <button>
+        <img src="https://www.svgrepo.com/show/509049/notification.svg" class="w-5 h-5" alt="Notifications">
+      </button>
+
+      <!-- Settings Icon -->
+      <button>
+        <img src="https://www.svgrepo.com/show/510432/settings.svg" class="w-5 h-5" alt="Settings">
+      </button>
+
+      <!-- Avatar -->
+      <img
+        src="https://randomuser.me/api/portraits/men/32.jpg"
+        alt="User"
+        class="w-8 h-8 rounded-full object-cover"
+      />
+    </div>
+  </nav>
+
+</body>
+</html>

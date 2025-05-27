@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Media Upload Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100">
+    <div class="flex h-screen">
+      <!-- Sidebar -->
+      <aside class="w-60  border-r p-4 space-y-4 bg-red-400">
+        <h2 class="text-xl font-bold mb-4">File Gen</h2>
+        <nav class="space-y-2">
+          <a href="#" class="block px-4 py-2 rounded bg-blue-100 text-blue-700">Dashboard</a>
+          <a href="#" class="block px-4 py-2 rounded hover:bg-gray-100">New Folder</a>
+          <a href="#" class="block px-4 py-2 rounded hover:bg-gray-100">Starred</a>
+          <a href="#" class="block px-4 py-2 rounded hover:bg-gray-100">Folders List</a>
+          <a href="#" class="block px-4 py-2 rounded hover:bg-gray-100">Friends</a>
+          <a href="#" class="block px-4 py-2 rounded hover:bg-gray-100">Sharefolders</a>
+          <a href="#" class="block px-4 py-2 rounded hover:bg-gray-100">Statistics</a>
+        </nav>
+        <hr />
+        <nav class="space-y-2">
+          <a href="#" class="block px-4 py-2 rounded hover:bg-gray-100">Help Center</a>
+          <a href="#" class="block px-4 py-2 rounded hover:bg-gray-100">Report</a>
+          <a href="#" class="block px-4 py-2 rounded hover:bg-gray-100">Settings</a>
+        </nav>
+        <a href="#" class="block px-4 py-2 text-red-600 mt-auto hover:bg-red-50">Logout</a>
+      </aside>
+
+
+      
+      <!-- Main content -->
+      <main class="flex-1 p-6">
+        <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow">
+          <h2 class="text-xl font-semibold mb-2">Media Upload</h2>
+          <p class="text-sm text-gray-500 mb-4">Add your documents here, and you can upload up to 8 files max</p>
+
+          <!-- Drag and drop zone -->
+          <div id="dropzone" class="border-2 border-dashed border-blue-300 p-6 text-center rounded mb-4 bg-blue-50 cursor-pointer">
+            <input id="fileInput" type="file" multiple class="hidden" />
+            <p>Drag your file(s) or <span class="text-blue-600 underline cursor-pointer" onclick="document.getElementById('fileInput').click()">browse</span></p>
+            <p class="text-sm text-gray-500 mt-1">Max 10 MB files are allowed</p>
+          </div>
+
+          <p class="text-sm text-gray-500 mb-2">Only support .jpg, .png, .svg and .zip files</p>
+
+          <!-- Upload from URL -->
+          <div class="mt-6">
+            <p class="text-sm font-medium text-gray-700 mb-2">Upload from URL</p>
+            <div class="flex gap-2">
+              <input type="url" id="fileUrl" placeholder="Add file URL" class="w-full border border-gray-300 rounded px-4 py-2" />
+              <button onclick="uploadFromUrl()" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded">Upload</button>
+            </div>
+          </div>
+
+          <!-- Uploaded file list -->
+          <div id="fileList" class="mt-6 space-y-2 text-sm text-gray-700"></div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      const dropzone = document.getElementById('dropzone');
+      const fileInput = document.getElementById('fileInput');
+      const fileList = document.getElementById('fileList');
+
+      dropzone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropzone.classList.add('bg-blue-100');
+      });
+
+      dropzone.addEventListener('dragleave', () => {
+        dropzone.classList.remove('bg-blue-100');
+      });
+
+      dropzone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropzone.classList.remove('bg-blue-100');
+        handleFiles(e.dataTransfer.files);
+      });
+
+      fileInput.addEventListener('change', (e) => {
+        handleFiles(e.target.files);
+      });
+
+      function handleFiles(files) {
+        for (let file of files) {
+          if (file.size > 10 * 1024 * 1024) {
+            alert(`File ${file.name} exceeds 10MB limit.`);
+            continue;
+          }
+          const listItem = document.createElement('div');
+          listItem.textContent = `Uploaded: ${file.name}`;
+          fileList.appendChild(listItem);
+        }
+      }
+
+      function uploadFromUrl() {
+        const url = document.getElementById('fileUrl').value;
+        if (url.trim() === '') {
+          alert('Please enter a valid URL');
+          return;
+        }
+        const listItem = document.createElement('div');
+        listItem.textContent = `Uploaded from URL: ${url}`;
+        fileList.appendChild(listItem);
+        document.getElementById('fileUrl').value = '';
+      }
+    </script>
+  </body>
+</html>
